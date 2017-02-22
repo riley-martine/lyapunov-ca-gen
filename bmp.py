@@ -5,7 +5,9 @@ import numpy as np
 import io
 from typing import Tuple
 
-def getImg(filename: str) -> Image:
+RGBA = Tuple[int, int, int, int]
+
+def getImg(filename: str, color: RGBA=(0,0,0,0)) -> Image:
     """prec: str filename of very specific datatype: eg. \n
     110101001001\\n \n
     00101001010100\\n \n
@@ -27,8 +29,7 @@ def getImg(filename: str) -> Image:
         file.seek(0, 0)
         return width
 
-    RGB = Tuple[int, int, int]
-    def importFile(pad_file: io.TextIOWrapper, true_color: RGB=(0,0,0), false_color: RGB=(255,255,255)) -> np.ndarray:
+    def importFile(pad_file: io.TextIOWrapper, true_color: RGBA=(0,0,0,0), false_color: RGBA=(255,255,255,0)) -> np.ndarray:
         """prec: file object of specific format; postc: list of lists of ints"""
         file_padded = ['{line:0^{width}}'.format(line=line, width=width) for line in pad_file.readlines()]
         padded_list = [list(padded_line) for padded_line in file_padded]
@@ -40,9 +41,14 @@ def getImg(filename: str) -> Image:
     file = open(filename, 'r')
     width = getWidth(file)
     height = getHeight(file)
-    img_file = importFile(file, true_color=(255,0,0))
-    img = Image.fromarray(img_file, mode='RGB')
+    img_file = importFile(file, true_color=color)
+    img = Image.fromarray(img_file, mode='RGBA')
     return img
 
-img = getImg('genfilessmall/30.0.errors')
-img.show()
+RED = (255,0,0,255)
+BLACK = (0,0,0,255)
+row_img = getImg('genfilessmall/30.0.rows', BLACK)
+err_img = getImg('genfilessmall/30.0.errors', RED)
+comp_img = Image.alpha_composite(row_img, err_img)
+
+comp_img.save('images/comp_img.png', 'png')
