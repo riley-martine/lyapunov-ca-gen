@@ -3,9 +3,10 @@
 from PIL import Image, ImageDraw
 import numpy as np
 import io
-from typing import Tuple
+import os
+from typing import Tuple, NewType
 
-RGBA = Tuple[int, int, int, int]
+RGBA = NewType('RGBA', Tuple[int, int, int, int])
 
 def getImg(filename: str, color: RGBA=(0,0,0,0)) -> Image:
     """prec: str filename of very specific datatype: eg. \n
@@ -45,10 +46,18 @@ def getImg(filename: str, color: RGBA=(0,0,0,0)) -> Image:
     img = Image.fromarray(img_file, mode='RGBA')
     return img
 
-RED = (255,0,0,255)
-BLACK = (0,0,0,255)
-row_img = getImg('genfilessmall/30.0.rows', BLACK)
-err_img = getImg('genfilessmall/30.0.errors', RED)
-comp_img = Image.alpha_composite(row_img, err_img)
+RED = RGBA((255,0,0,255))
+BLACK = RGBA((0,0,0,255))
 
-comp_img.save('images/comp_img.png', 'png')
+for filename in os.listdir('genfilessmall'):
+    if filename.endswith('.errors'):
+        err_img = getImg('genfilessmall/'+filename, RED)
+        row_img = getImg('genfilessmall/'+filename[:-7]+'.rows', BLACK)
+        comp_img = Image.alpha_composite(row_img, err_img)
+        comp_img.save('composites/'+filename[:-7]+'.png', 'png')
+
+# row_img = getImg('genfilessmall/30.0.rows', BLACK)
+# err_img = getImg('genfilessmall/30.0.errors', RED)
+# comp_img = Image.alpha_composite(row_img, err_img)
+#
+# comp_img.show()
