@@ -11,6 +11,9 @@ Generate files to use with riley-martine/cryptography-cellular-automata/big.py
 
 ## Examples Below use Rule 30
 
+## Composite
+![Composite](/images/comp_img.png?raw=true "Composite")
+
 ## Rows
 ![Rows](/images/30.0.rows.png?raw=true "Rows")
 
