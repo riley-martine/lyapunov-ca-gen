@@ -12,13 +12,13 @@ Generate files to use with riley-martine/cryptography-cellular-automata/big.py
 ## Examples Below use Rule 30
 
 ## Composite
-![Composite](/images/comp_img.png?raw=true "Composite")
+![Composite](/row_error_images_examples/comp_img.png?raw=true "Composite")
 
 ## Rows
-![Rows](/images/30.0.rows.png?raw=true "Rows")
+![Rows](/row_error_images_examples/30.0.rows.png?raw=true "Rows")
 
 ## Rows With One Initial Defect
-![Rows With One Initial Defect](/images/30.0.rows2.png?raw=true "Rows With One Initial Defect")
+![Rows With One Initial Defect](/row_error_images_examples/30.0.rows2.png?raw=true "Rows With One Initial Defect")
 
 ## Defect Cone (Where rows[i,j] != rows2[i,j])
-![Defect Cone](/images/30.0.defectcone.png?raw=true "Defect Cone")
+![Defect Cone](/row_error_images_examples/30.0.defectcone.png?raw=true "Defect Cone")
